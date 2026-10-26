@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fffaf4">
+  <meta name="description" content="Find nearby food, drinks, and medicines in Manito, Albay with LocaScan.">
+  <title>LocaScan — Manito Product Locator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="chat-widget.css">
+  <script src="auth.js" defer></script>
+  <script src="chat-widget.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-logo" src="locascan-logo.png" alt="LocaScan Product Locator">
+        <p><span class="location-dot" aria-hidden="true"></span> Manito, Albay</p>
+      </div>
+      <div class="header-actions">
+        <button class="logout-button" id="logout-button" type="button" aria-label="Log out" title="Log out">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M10 4H5.8A1.8 1.8 0 0 0 4 5.8v12.4A1.8 1.8 0 0 0 5.8 20H10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M13 16l4-4-4-4M17 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="welcome" aria-labelledby="welcome-title">
+      <div class="welcome-copy">
+        <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> YOUR LOCASCAN, MADE EASIER</p>
+        <h1 id="welcome-title">Good things are <span>closer than you think.</span></h1>
+        <p class="welcome-description">Find everyday essentials from the shops around you. A little more time for what matters.</p>
+        <a class="welcome-link" href="#nearby-title">Explore nearby <span aria-hidden="true">↓</span></a>
+      </div>
+      <img class="welcome-art" src="locascan-hero-cutout.png" alt="" aria-hidden="true">
+    </section>
+
+    <section class="search-row" aria-label="Search nearby products">
+      <label class="search-box">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="10.8" cy="10.8" r="7.3" stroke="currentColor" stroke-width="1.8"/>
+          <path d="m16.2 16.2 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span class="sr-only">Search food, drinks, and medicines</span>
+        <input id="search" type="search" placeholder="Search food, drinks, medicines..." autocomplete="off">
+      </label>
+      <button class="icon-button" id="qr-button" type="button" aria-label="Scan QR code" title="Scan QR code">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M4 4h9v9H4zM19 4h9v9h-9zM4 19h9v9H4z" stroke="currentColor" stroke-width="2.7"/>
+          <path d="M7 7h3v3H7zM22 7h3v3h-3zM7 22h3v3H7zM19 19h3v3h-3zM25 19h3v3h-3zM19 25h3v3h-3zM25 25h3v3h-3z" fill="currentColor"/>
+        </svg>
+      </button>
+    </section>
+
+    <div class="content-grid">
+      <section class="radius-panel" aria-labelledby="radius-title">
+        <h2 class="radius-heading" id="radius-title">
+          <span>Distance Radius Tracker</span>
+          <output id="radius-value" for="radius-options">2 km</output>
+        </h2>
+        <p class="radius-copy" id="radius-copy">Showing stores within 2 km in Manito</p>
+        <div class="radius-options" id="radius-options" role="group" aria-label="Choose search distance">
+          <button class="radius-option" type="button" data-radius="1" aria-pressed="false">1 km</button>
+          <button class="radius-option" type="button" data-radius="2" aria-pressed="true">2 km</button>
+          <button class="radius-option" type="button" data-radius="5" aria-pressed="false">5 km</button>
+          <button class="radius-option" type="button" data-radius="10" aria-pressed="false">10 km</button>
+        </div>
+      </section>
+
+      <section aria-labelledby="nearby-title">
+        <h2 class="section-heading" id="nearby-title">Nearby Available Essentials</h2>
+        <div class="store-list" id="store-list" aria-live="polite"></div>
+        <p class="empty-state" id="empty-state" hidden>No nearby products match your search. Try another product or distance.</p>
+      </section>
+    </div>
+  </main>
+
+  <section class="chat-widget" aria-label="LocaScan chat">
+    <div class="chat-widget-panel" id="chat-widget-panel" hidden>
+      <header class="chat-widget-heading">
+        <span class="widget-status-dot" aria-hidden="true"></span>
+        <span>Ask LocaScan</span>
+        <button class="chat-widget-close" id="chat-widget-close" type="button" aria-label="Close chat">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+      <iframe id="chat-widget-frame" title="LocaScan chat assistant" loading="lazy"></iframe>
+    </div>
+    <button class="chat-widget-launcher" id="chat-widget-launcher" type="button" aria-label="Open Ask LocaScan chat" aria-expanded="false" aria-controls="chat-widget-panel" title="Drag to move · Click to chat">
+      <svg class="launcher-chat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-5.5A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+        <path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <svg class="launcher-close-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span class="sr-only">Ask LocaScan</span>
+    </button>
+  </section>
+
+  <script>
+    const stores = [
+      {
+        name: "Manito Central Pharmacy",
+        category: "Medicines",
+        product: "Paracetamol 500mg",
+        distance: 0.3,
+        address: "Poblacion, Manito, Albay",
+        query: "Manito Central Pharmacy, Poblacion, Manito, Albay"
+      },
+      {
+        name: "Albay Mart - Manito Branch",
+        category: "Drinks",
+        product: "Bottled Mineral Water 1L",
+        distance: 0.8,
+        address: "Poblacion, Manito, Albay",
+        query: "Albay Mart Manito Branch, Manito, Albay"
+      },
+      {
+        name: "Aling Nena Grocery",
+        category: "Foods",
+        product: "Rice, canned goods, and snacks",
+        distance: 1.2,
+        address: "Poblacion, Manito, Albay",
+        query: "Aling Nena Grocery, Manito, Albay"
+      },
+      {
+        name: "Manito Community Pharmacy",
+        category: "Medicines",
+        product: "First-aid and essential medicines",
+        distance: 2.6,
+        address: "Manito, Albay",
+        query: "Pharmacy, Manito, Albay"
+      },
+      {
+        name: "Bicol Fresh Market",
+        category: "Foods",
+        product: "Fresh fruits and vegetables",
+        distance: 4.4,
+        address: "Manito, Albay",
+        query: "Market, Manito, Albay"
+      },
+      {
+        name: "Manito Refreshment Store",
+        category: "Drinks",
+        product: "Juice and bottled drinks",
+        distance: 7.5,
+        address: "Manito, Albay",
+        query: "Store, Manito, Albay"
+      }
+    ];
+
+    const storeList = document.querySelector("#store-list");
+    const searchInput = document.querySelector("#search");
+    const emptyState = document.querySelector("#empty-state");
+    const radiusValue = document.querySelector("#radius-value");
+    const radiusCopy = document.querySelector("#radius-copy");
+    let selectedRadius = 2;
+
+    const mapIcon = `
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M9 3v15M15 6v15" stroke="currentColor" stroke-width="1.8"/>
+      </svg>`;
+
+    function renderStores() {
+      const term = searchInput.value.trim().toLocaleLowerCase();
+      const visibleStores = stores.filter((store) => {
+        const matchesRadius = store.distance <= selectedRadius;
+        const searchableText = `${store.name} ${store.category} ${store.product} ${store.address}`.toLocaleLowerCase();
+        return matchesRadius && searchableText.includes(term);
+      });
+
+      storeList.innerHTML = visibleStores.map((store) => {
+        const mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(store.query)}&travelmode=driving&dir_action=navigate`;
+        return `
+          <article class="store-card">
+            <div class="store-topline">
+              <h3 class="store-name">${store.name}</h3>
+              <span class="category">${store.category}</span>
+            </div>
+            <p class="product"><span aria-hidden="true">📦</span> ${store.product}</p>
+            <p class="location"><span aria-hidden="true">📍</span> ${store.address}</p>
+            <div class="card-footer">
+              <span class="distance"><span aria-hidden="true">🏃</span> ${store.distance.toFixed(1)} km away</span>
+              <a class="map-button" href="${mapUrl}" target="_blank" rel="noopener noreferrer">${mapIcon} View Map</a>
+            </div>
+          </article>`;
+      }).join("");
+
+      emptyState.hidden = visibleStores.length > 0;
+    }
+
+    document.querySelectorAll(".radius-option").forEach((button) => {
+      button.addEventListener("click", () => {
+        selectedRadius = Number(button.dataset.radius);
+        document.querySelectorAll(".radius-option").forEach((option) => {
+          option.setAttribute("aria-pressed", String(option === button));
+        });
+        radiusValue.value = `${selectedRadius} km`;
+        radiusCopy.textContent = `Showing stores within ${selectedRadius} km in Manito`;
+        renderStores();
+      });
+    });
+
+    searchInput.addEventListener("input", renderStores);
+    document.querySelector("#qr-button").addEventListener("click", () => {
+      window.alert("QR code scanning is not available in this demo.");
+    });
+
+    renderStores();
+  </script>
+</body>
+</html>

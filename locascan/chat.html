@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf7f0">
+  <meta name="description" content="Ask LocaScan about finding nearby essentials in Manito.">
+  <title>Ask LocaScan — Manito Product Locator</title>
+  <link rel="stylesheet" href="chat.css">
+  <script src="auth.js" defer></script>
+  <script src="chat.js" defer></script>
+</head>
+<body>
+  <main class="chat-page">
+    <header class="chat-topbar">
+      <a class="brand-link" href="index.html" aria-label="Back to LocaScan home">
+        <img src="locascan-logo.png" alt="LocaScan Product Locator">
+      </a>
+      <a class="back-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M19 12H5m0 0 6-6m-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to home
+      </a>
+    </header>
+
+    <section class="chat-shell" aria-labelledby="chat-title">
+      <header class="chat-heading">
+        <div class="assistant-avatar" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 29s11-10.3 11-19A11 11 0 1 0 5 10c0 8.7 11 19 11 19Z" fill="currentColor"/>
+            <circle cx="16" cy="10" r="3.8" fill="#fffaf4"/>
+          </svg>
+        </div>
+        <div class="chat-title-copy">
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> YOUR LOCASCAN GUIDE</p>
+          <h1 id="chat-title">Ask LocaScan</h1>
+          <p class="chat-subtitle">Here to help you find your way around.</p>
+        </div>
+        <span class="chat-mark" aria-hidden="true">✳</span>
+      </header>
+
+      <div class="chat-notice">
+        Ask about LocaScan searches, nearby essentials, distance, stores, maps, and accounts.
+      </div>
+
+      <div class="conversation" id="conversation" role="log" aria-live="polite" aria-relevant="additions text">
+        <article class="message assistant-message">
+          <span class="message-avatar" aria-hidden="true">L</span>
+          <p class="message-bubble">Hi there! Ask me how to search for nearby food, drinks, or medicines, change your distance, or use your LocaScan account.</p>
+        </article>
+      </div>
+
+      <div class="suggestions" aria-label="Suggested questions">
+        <button class="suggestion" type="button">How do I find a nearby pharmacy?</button>
+        <button class="suggestion" type="button">How does the distance filter work?</button>
+        <button class="suggestion" type="button">How do I view a store on the map?</button>
+      </div>
+
+      <form class="composer" id="chat-form">
+        <label class="sr-only" for="chat-input">Ask a question about LocaScan</label>
+        <textarea id="chat-input" name="question" rows="1" maxlength="800" placeholder="Ask about using LocaScan..." required></textarea>
+        <button class="send-button" id="send-button" type="submit" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m21 3-7.2 18-3.6-7.2L3 10.2 21 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M10.2 13.8 15 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </form>
+      <p class="chat-status" id="chat-status" role="status" aria-live="polite"></p>
+      <p class="chat-footnote">LocaScan Guide · Answers are about the LocaScan system only</p>
+    </section>
+  </main>
+</body>
+</html>

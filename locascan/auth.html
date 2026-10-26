@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fffaf4">
+  <meta name="description" content="Log in or register for LocaScan.">
+  <title>Log in or Register — LocaScan</title>
+  <link rel="stylesheet" href="auth.css">
+  <script src="auth.js" defer></script>
+</head>
+<body>
+  <main class="auth-page">
+    <a class="brand-link" href="index.html" aria-label="LocaScan home">
+      <img class="auth-logo" src="locascan-logo.png" alt="LocaScan Product Locator">
+    </a>
+
+    <div class="auth-layout">
+      <aside class="auth-welcome">
+        <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> A LITTLE CLOSER TO HOME</p>
+        <h2>Good things are <span>closer than you think.</span></h2>
+        <p class="auth-welcome-copy">Everyday essentials, found around the corner. Discover the little shops that make Manito feel like home.</p>
+        <div class="auth-art">
+          <img class="auth-art-logo" src="locascan-brand-cutout.png" alt="LocaScan logo">
+        </div>
+        <p class="auth-note"><span aria-hidden="true">✦</span> Made for your neighborhood</p>
+      </aside>
+
+      <div class="auth-card">
+        <section class="auth-panel register-panel" id="register" aria-labelledby="register-title">
+          <p class="eyebrow">JOIN LOCASCAN</p>
+          <h1 id="register-title">Create your account</h1>
+          <p class="intro">Create an account to find everyday essentials around Manito.</p>
+
+          <form id="register-form">
+            <div class="fields">
+              <label for="register-first-name">First name</label>
+              <input id="register-first-name" name="firstName" type="text" placeholder="First name" autocomplete="given-name" required>
+
+              <label for="register-middle-name">Middle name</label>
+              <input id="register-middle-name" name="middleName" type="text" placeholder="Middle name" autocomplete="additional-name" required>
+
+              <label for="register-last-name">Last name</label>
+              <input id="register-last-name" name="lastName" type="text" placeholder="Last name" autocomplete="family-name" required>
+
+              <label for="register-username">Username</label>
+              <input id="register-username" name="username" type="text" placeholder="Choose a username" autocomplete="username" minlength="3" maxlength="24" pattern="[A-Za-z0-9._-]+" title="Use 3-24 letters, numbers, periods, underscores, or hyphens." required>
+
+              <label for="register-password">Password</label>
+              <input id="register-password" name="password" type="password" placeholder="Create a password" autocomplete="new-password" minlength="8" required>
+            </div>
+            <p class="form-message" id="register-message" role="alert" aria-live="polite"></p>
+            <button class="primary-button" type="submit">Register</button>
+          </form>
+          <p class="switch-copy">Already registered? <a href="#login">Log in</a></p>
+        </section>
+
+        <section class="auth-panel login-panel" id="login" aria-labelledby="login-title">
+          <p class="eyebrow">WELCOME BACK</p>
+          <h1 id="login-title">Log in to LocaScan</h1>
+          <p class="intro">Sign in to continue discovering nearby essentials.</p>
+
+          <form id="login-form">
+            <div class="fields">
+              <label for="login-username">Username</label>
+              <input id="login-username" name="username" type="text" placeholder="Enter your username" autocomplete="username" required>
+
+              <label for="login-password">Password</label>
+              <input id="login-password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+            </div>
+            <p class="form-message success-message" id="login-success" role="status" aria-live="polite"></p>
+            <p class="form-message" id="login-message" role="alert" aria-live="polite"></p>
+            <button class="primary-button" type="submit">Log in</button>
+          </form>
+          <p class="switch-copy">New to LocaScan? <a href="#register">Create an account</a></p>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
